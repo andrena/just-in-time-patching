@@ -2,6 +2,8 @@ package net.amygdalum.testrecorder.remoteagent;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -22,7 +24,9 @@ import sun.jvmstat.monitor.VmIdentifier;
 @SuppressWarnings("restriction")
 public class RemoteAgentAttacher {
 	public static void main(String[] args) throws Exception {
-		File agentJar = new File(args[0]);
+		Path agentJarPath = Paths.get(args[0]);
+		File agentJar = agentJarPath.toFile();
+
 		String mainClass = args[1];
 		String action = args.length > 2 ? args[2] : "attach";
 		try {

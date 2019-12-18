@@ -11,7 +11,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 public class RemoteAgent {
 
 	public static volatile RemoteAgent agent;
-	
+
 	private Instrumentation instrumentation;
 	public ResettableClassFileTransformer runningTransformer;
 
@@ -24,7 +24,7 @@ public class RemoteAgent {
 			.disableClassFormatChanges()
 			.with(new AgentBuilder.CircularityLock.Default())
 			.with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
-			.with(AgentBuilder.Listener.StreamWriting.toSystemError())
+			.with(new AgentBuilder.Listener.WithErrorsOnly(AgentBuilder.Listener.StreamWriting.toSystemError()))
 			.type(ElementMatchers.nameContains("TodoList"))
 			.transform(transformer)
 			.installOn(instrumentation);
@@ -46,21 +46,11 @@ public class RemoteAgent {
 				agent.shutdown();
 				agent = null;
 			} else {
-				System.out.println("no agent to detach exists");			
+				System.out.println("no agent to detach exists");
 			}
 		} else {
 			System.out.println("attaching");
 			agent = new RemoteAgent(instrumentation);
 		}
-	}
-
-
-	static class Template {
-
-		@Advice.OnMethodExit
-		static void exit(@Advice.This Object self) {
-			System.out.println("exit");
-		}
-
 	}
 }
