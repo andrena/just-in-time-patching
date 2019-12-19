@@ -16,7 +16,7 @@ import sun.jvmstat.monitor.MonitoredVmUtil;
 import sun.jvmstat.monitor.VmIdentifier;
 
 /**
- * start with java net.amygdalum.testrecorder.remoteagent.RemoteAgentAttacher <agent-jar> <main-class> [<action>]
+ * start with java de.andrena.justintime.attaching.RemoteAgentAttacher <agent-jar> <main-class> [<action>]
  * - agent jar is a jar containing a java agent
  * - main class is the main class of the java process to attach to (a list is printed)
  * - action `attach` a new agent or `detach` an existing one 
