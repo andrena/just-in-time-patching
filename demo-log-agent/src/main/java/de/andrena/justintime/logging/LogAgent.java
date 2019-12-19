@@ -1,4 +1,4 @@
-package net.amygdalum.testrecorder.remoteagent;
+package de.andrena.justintime.logging;
 
 import java.lang.instrument.Instrumentation;
 
@@ -8,17 +8,17 @@ import net.bytebuddy.agent.builder.ResettableClassFileTransformer;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class RemoteAgent {
+public class LogAgent {
 
-	public static volatile RemoteAgent agent;
+	public static volatile LogAgent agent;
 
 	private Instrumentation instrumentation;
-	public ResettableClassFileTransformer runningTransformer;
+	private ResettableClassFileTransformer runningTransformer;
 
-	public RemoteAgent(Instrumentation instrumentation) {
+	public LogAgent(Instrumentation instrumentation) {
 		this.instrumentation = instrumentation;
 		Transformer transformer = (builder, type, loader, module) -> builder
-			.visit(Advice.to(Template.class).on(ElementMatchers.hasMethodName("add")));
+			.visit(Advice.to(LoggingTemplate.class).on(ElementMatchers.hasMethodName("add")));
 		runningTransformer = new AgentBuilder.Default()
 			.ignore(ElementMatchers.none())
 			.disableClassFormatChanges()
@@ -50,7 +50,7 @@ public class RemoteAgent {
 			}
 		} else {
 			System.out.println("attaching");
-			agent = new RemoteAgent(instrumentation);
+			agent = new LogAgent(instrumentation);
 		}
 	}
 }

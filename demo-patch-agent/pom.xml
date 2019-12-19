@@ -9,7 +9,7 @@
 		<artifactId>remote-agent-demo</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>demo-log-agent</artifactId>
+	<artifactId>demo-patch-agent</artifactId>
 	<name>${project.groupId}:${project.artifactId}</name>
 
 	<properties>
@@ -59,8 +59,8 @@
 									<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 								</manifest>
 								<manifestEntries>
-									<Premain-Class>de.andrena.justintime.logging.LogAgent</Premain-Class>
-									<Agent-Class>de.andrena.justintime.logging.LogAgent</Agent-Class>
+									<Premain-Class>de.andrena.justintime.patching.PatchAgent</Premain-Class>
+									<Agent-Class>de.andrena.justintime.patching.PatchAgent</Agent-Class>
 									<Can-Redefine-Classes>true</Can-Redefine-Classes>
 									<Can-Retransform-Classes>true</Can-Retransform-Classes>
 								</manifestEntries>

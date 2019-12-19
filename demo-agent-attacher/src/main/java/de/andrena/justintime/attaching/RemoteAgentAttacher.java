@@ -1,4 +1,4 @@
-package net.amygdalum.testrecorder.remoteagent;
+package de.andrena.justintime.attaching;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -21,7 +21,6 @@ import sun.jvmstat.monitor.VmIdentifier;
  * - main class is the main class of the java process to attach to (a list is printed)
  * - action `attach` a new agent or `detach` an existing one 
  */
-@SuppressWarnings("restriction")
 public class RemoteAgentAttacher {
 	public static void main(String[] args) throws Exception {
 		Path agentJarPath = Paths.get(args[0]);
