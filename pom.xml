@@ -46,6 +46,7 @@
 	</properties>
 
 	<modules>
+        <module>demo-application</module>
 		<module>demo-agent-attacher</module>
 		<module>demo-log-agent</module>
 		<module>demo-test-agent</module>
