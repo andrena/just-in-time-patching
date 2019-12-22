@@ -18,14 +18,14 @@ public class LogAgent {
 	public LogAgent(Instrumentation instrumentation) {
 		this.instrumentation = instrumentation;
 		Transformer transformer = (builder, type, loader, module) -> builder
-			.visit(Advice.to(LoggingTemplate.class).on(ElementMatchers.hasMethodName("add")));
+			.visit(Advice.to(LoggingTemplate.class).on(ElementMatchers.hasMethodName("predict")));
 		runningTransformer = new AgentBuilder.Default()
 			.ignore(ElementMatchers.none())
 			.disableClassFormatChanges()
 			.with(new AgentBuilder.CircularityLock.Default())
 			.with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
 			.with(new AgentBuilder.Listener.WithErrorsOnly(AgentBuilder.Listener.StreamWriting.toSystemError()))
-			.type(ElementMatchers.nameContains("TodoList"))
+			.type(ElementMatchers.nameContains("Server"))
 			.transform(transformer)
 			.installOn(instrumentation);
 	}

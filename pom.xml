@@ -46,7 +46,7 @@
 	</properties>
 
 	<modules>
-        <module>demo-application</module>
+		<module>demo-application</module>
 		<module>demo-agent-attacher</module>
 		<module>demo-log-agent</module>
 		<module>demo-test-agent</module>
@@ -63,6 +63,11 @@
 				<groupId>net.bytebuddy</groupId>
 				<artifactId>byte-buddy-agent</artifactId>
 				<version>1.9.13</version>
+			</dependency>
+			<dependency>
+				<groupId>net.amygdalum</groupId>
+				<artifactId>xrayinterface</artifactId>
+				<version>0.3.3</version>
 			</dependency>
 			<dependency>
 				<groupId>net.amygdalum</groupId>

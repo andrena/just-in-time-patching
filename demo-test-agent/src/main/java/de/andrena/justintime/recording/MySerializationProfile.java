@@ -12,12 +12,12 @@ public class MySerializationProfile extends DefaultSerializationProfile {
 
 	@Override
 	public List<Classes> getClasses() {
-		return asList(Classes.byName("TodoList"));
+		return asList(Classes.byName("EsotericWeatherSource"));
 	}
 
 	@Override
 	public List<Methods> getRecorded() {
-		return asList(Methods.byName("add"));
+		return asList(Methods.byName("getWeather"));
 	}
 	
 }
