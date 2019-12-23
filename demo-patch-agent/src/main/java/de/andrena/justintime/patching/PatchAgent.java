@@ -18,7 +18,7 @@ public class PatchAgent {
 	public PatchAgent(Instrumentation instrumentation) {
 		this.instrumentation = instrumentation;
 		Transformer transformer = (builder, type, loader, module) -> builder
-			.method(ElementMatchers.hasMethodName("add"))
+			.method(ElementMatchers.hasMethodName("badStellarConfiguration"))
 			.intercept(MethodDelegation.to(PatchingTemplate.class));
 		runningTransformer = new AgentBuilder.Default()
 			.ignore(ElementMatchers.none())
@@ -26,7 +26,7 @@ public class PatchAgent {
 			.with(new AgentBuilder.CircularityLock.Default())
 			.with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
 			.with(new AgentBuilder.Listener.WithErrorsOnly(AgentBuilder.Listener.StreamWriting.toSystemError()))
-			.type(ElementMatchers.nameContains("TodoList"))
+			.type(ElementMatchers.nameContains("Esoterics"))
 			.transform(transformer)
 			.installOn(instrumentation);
 	}

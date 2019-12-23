@@ -25,6 +25,12 @@
 			<groupId>net.bytebuddy</groupId>
 			<artifactId>byte-buddy-agent</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>de.andrena.justintime</groupId>
+            <artifactId>demo-application</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>

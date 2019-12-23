@@ -1,14 +1,15 @@
 package de.andrena.justintime.patching;
 
-import java.util.Arrays;
-
-import net.bytebuddy.implementation.bind.annotation.AllArguments;
-import net.bytebuddy.implementation.bind.annotation.This;
+import de.andrena.justintime.application.domain.DateSource;
+import net.bytebuddy.implementation.bind.annotation.Argument;
 
 public class PatchingTemplate {
 	
-	public static int method(@This Object self, @AllArguments Object[] objects) {
-		System.out.println("skipping add of " + Arrays.toString(objects));
-		return 1;
+	public static boolean badStellarConfiguration(@Argument(0) DateSource date) {
+		int divisor = date.getMonth() % date.getHoursOfDay();
+		if (divisor == 0) {
+			return false;
+		}
+		return date.getDayOfMonth() % divisor == 0;  
 	}
 }
