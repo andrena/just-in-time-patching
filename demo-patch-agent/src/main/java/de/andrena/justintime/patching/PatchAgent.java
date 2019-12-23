@@ -1,6 +1,8 @@
 package de.andrena.justintime.patching;
 
 import java.lang.instrument.Instrumentation;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.agent.builder.AgentBuilder.Transformer;
@@ -10,7 +12,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 
 public class PatchAgent {
 
-	public static volatile PatchAgent agent;
+	public static volatile List<PatchAgent> agents = new ArrayList<>();
 
 	private Instrumentation instrumentation;
 	private ResettableClassFileTransformer runningTransformer;
@@ -41,17 +43,18 @@ public class PatchAgent {
 
 	public static void agentmain(String arg, Instrumentation instrumentation) {
 		if (arg.equals("detach")) {
-			System.out.println("detaching");
-			if (agent != null) {
-				System.out.println("agent to detach exists");
-				agent.shutdown();
-				agent = null;
-			} else {
+			if (agents.isEmpty()) {
 				System.out.println("no agent to detach exists");
 			}
+			for (PatchAgent agent : agents) {
+				System.out.println("detaching " + System.identityHashCode(agent));
+				agent.shutdown();
+			}
+			agents.clear();
 		} else {
-			System.out.println("attaching");
-			agent = new PatchAgent(instrumentation);
+			PatchAgent agent = new PatchAgent(instrumentation);
+			System.out.println("attaching " + System.identityHashCode(agent));
+			agents.add(agent);
 		}
 	}
 }

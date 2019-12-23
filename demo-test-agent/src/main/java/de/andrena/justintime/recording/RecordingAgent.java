@@ -1,6 +1,7 @@
 package de.andrena.justintime.recording;
 
 import java.lang.instrument.Instrumentation;
+import java.util.List;
 
 import net.amygdalum.testrecorder.DefaultPerformanceProfile;
 import net.amygdalum.testrecorder.DefaultSerializationProfile;
@@ -15,7 +16,7 @@ import net.amygdalum.testrecorder.profile.SnapshotConsumer;
 
 public class RecordingAgent extends TestRecorderAgent {
 
-	public static volatile RecordingAgent agent;
+	public static volatile List<RecordingAgent> agents;
 
 	public RecordingAgent(Instrumentation instrumentation) {
 		super(instrumentation, configure());
@@ -35,18 +36,19 @@ public class RecordingAgent extends TestRecorderAgent {
 
 	public static void agentmain(String arg, Instrumentation instrumentation) {
 		if (arg.equals("detach")) {
-			System.out.println("detaching");
-			if (agent != null) {
-				System.out.println("agent to detach exists");
-				agent.shutdown();
-				agent = null;
-			} else {
+			if (agents.isEmpty()) {
 				System.out.println("no agent to detach exists");
 			}
+			for (RecordingAgent agent : agents) {
+				System.out.println("detaching " + System.identityHashCode(agent));
+				agent.shutdown();
+			}
+			agents.clear();
 		} else {
-			System.out.println("attaching");
-			agent = new RecordingAgent(instrumentation);
+			RecordingAgent agent = new RecordingAgent(instrumentation);
 			agent.prepareInstrumentations();
+			System.out.println("attaching " + System.identityHashCode(agent));
+			agents.add(agent);
 		}
 	}
 
