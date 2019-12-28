@@ -12,7 +12,7 @@ import java.util.GregorianCalendar;
 
 public class CalendarDateSource implements DateSource {
 
-	private Calendar date;
+	public Calendar date;
 
 	public CalendarDateSource(Calendar date) {
 		this.date = date;
