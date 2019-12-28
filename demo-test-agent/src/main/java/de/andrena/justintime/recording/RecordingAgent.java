@@ -1,6 +1,7 @@
 package de.andrena.justintime.recording;
 
 import java.lang.instrument.Instrumentation;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.amygdalum.testrecorder.DefaultPerformanceProfile;
@@ -16,7 +17,7 @@ import net.amygdalum.testrecorder.profile.SnapshotConsumer;
 
 public class RecordingAgent extends TestRecorderAgent {
 
-	public static volatile List<RecordingAgent> agents;
+	public static volatile List<RecordingAgent> agents = new ArrayList<>();
 
 	public RecordingAgent(Instrumentation instrumentation) {
 		super(instrumentation, configure());

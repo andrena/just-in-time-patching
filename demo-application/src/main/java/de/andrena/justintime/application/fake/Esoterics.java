@@ -5,12 +5,15 @@ import de.andrena.justintime.application.domain.Weather;
 import de.andrena.justintime.application.domain.Weekday;
 
 public class Esoterics {
+	
+	private int sourceOfKnowledge;
 
-	public static boolean badStellarConfiguration(DateSource date) {
-		return date.getDayOfMonth() % (date.getMonth() % date.getHoursOfDay()) == 0;  
+	public boolean badStellarConfiguration(DateSource date) {
+		sourceOfKnowledge = (sourceOfKnowledge + 1) % 6;
+		return date.getDayOfMonth() % sourceOfKnowledge == 0;  
 	}
 
-	public static Weather predictWithEsotericKnowledge(DateSource date, Weather weather) {
+	public Weather applyEsotericKnowledge(DateSource date, Weather weather) {
 		if (date.getDayOfMonth() == 13 && date.getWeekday() == Weekday.FRIDAY && badStellarConfiguration(date)) {
 			return new Weather(
 				weather.getPrecipitation().worse(),
