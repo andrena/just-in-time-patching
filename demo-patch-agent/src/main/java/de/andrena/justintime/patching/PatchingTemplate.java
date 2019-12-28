@@ -8,7 +8,6 @@ import net.bytebuddy.implementation.bind.annotation.This;
 
 public class PatchingTemplate {
 
-	//TODO: improve this with @FieldValue and FieldAccessor instead of Xray
 	public static boolean badStellarConfiguration(@This Esoterics self, @Argument(0) DateSource date) {
 		WithSourceOfKnowledge openSelf = XRayInterface.xray(self).to(WithSourceOfKnowledge.class);
 		openSelf.setSourceOfKnowledge((openSelf.getSourceOfKnowledge() + 1) % 6);

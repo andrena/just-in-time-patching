@@ -1,7 +1,5 @@
 package de.andrena.justintime.logging;
 
-import static net.amygdalum.xrayinterface.XRayInterface.xray;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -14,9 +12,8 @@ import net.bytebuddy.asm.Advice;
 
 public class LoggingTemplate {
 
-	//TODO: improve this with @FieldValue instead of Xray
 	@Advice.OnMethodEnter
-	public static void exit(@Advice.This Server self, @Advice.Argument(0) RoutingContext context) {
+	public static void exit(@Advice.This Server self, @Advice.Argument(0) RoutingContext context, @Advice.FieldValue("weather") WeatherSource weather) {
 		try {
 			int year = Integer.parseInt(context.request().getParam("year"));
 			int month = Integer.parseInt(context.request().getParam("month"));
@@ -29,7 +26,7 @@ public class LoggingTemplate {
 			System.out.println("season:" + time.getSeason());
 			System.out.println("weekday:" + time.getWeekday());
 			System.out.println("daytime:" + time.getDaytime());
-			System.out.println("weather:" + xray(self).to(WithWeather.class).getWeather().getWeather(time));
+			System.out.println("weather:" + weather.getWeather(time));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,7 +36,4 @@ public class LoggingTemplate {
 		return DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(date);
 	}
 
-	public interface WithWeather {
-		WeatherSource getWeather();
-	}
 }
