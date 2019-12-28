@@ -10,8 +10,9 @@ import net.bytebuddy.asm.Advice;
 
 public class LoggingTemplate {
 
+	//TODO: improve this with @FieldValue instead of Xray
 	@Advice.OnMethodEnter
-	static void exit(@Advice.This Server self, @Advice.Argument(0) RoutingContext context) {
+	public static void exit(@Advice.This Server self, @Advice.Argument(0) RoutingContext context) {
 		try {
 			int year = Integer.parseInt(context.request().getParam("year"));
 			int month = Integer.parseInt(context.request().getParam("month"));
