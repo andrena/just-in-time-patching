@@ -6,54 +6,46 @@ import static de.andrena.justintime.application.domain.Daytime.MORNING;
 import static de.andrena.justintime.application.domain.Daytime.NIGHT;
 import static de.andrena.justintime.application.domain.Daytime.NOON;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
 
 public class CalendarDateSource implements DateSource {
 
-	public Calendar date;
+	public LocalDateTime date;
 
-	public CalendarDateSource(Calendar date) {
+	public CalendarDateSource(LocalDateTime date) {
 		this.date = date;
 	}
 
 	public CalendarDateSource(int year, int month, int day, int hours) {
-		this.date = Calendar.getInstance();
-		date.set(year, month - 1, day, hours, 0);
+		this.date = LocalDateTime.of(year, month, day, hours, 0);
 	}
 
 	public CalendarDateSource() {
-		this(new GregorianCalendar());
+		this(LocalDateTime.now());
+	}
+	
+	public LocalDateTime getDate() {
+		return date;
 	}
 
 	@Override
 	public int getMonth() {
-		return date.get(Calendar.MONTH) + 1;
+		return date.getMonthValue();
 	}
 
 	@Override
 	public int getDayOfMonth() {
-		return date.get(Calendar.DAY_OF_MONTH);
+		return date.getDayOfMonth();
 	}
 
 	@Override
 	public int getHoursOfDay() {
-		return date.get(Calendar.HOUR_OF_DAY);
-	}
-
-	public String getHours() {
-		return String.valueOf(date.get(Calendar.HOUR_OF_DAY));
-	}
-
-	public String getDate() {
-		DateFormat format = DateFormat.getDateInstance(DateFormat.MEDIUM);
-		return format.format(date.getTime());
+		return date.getHour();
 	}
 
 	@Override
 	public Season getSeason() {
-		int dayOfYear = date.get(Calendar.DAY_OF_YEAR);
+		int dayOfYear = date.getDayOfYear();
 		if (dayOfYear < 81) {
 			return Season.WINTER;
 		} else if (dayOfYear < 162) {
@@ -69,13 +61,13 @@ public class CalendarDateSource implements DateSource {
 
 	@Override
 	public Weekday getWeekday() {
-		int dayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1;
+		int dayOfWeek = date.getDayOfWeek().getValue() % 7;
 		return Weekday.values()[dayOfWeek];
 	}
 
 	@Override
 	public Daytime getDaytime() {
-		int base = date.get(Calendar.HOUR_OF_DAY);
+		int base = date.getHour();
 		int time = (int) (base % 24);
 		if (time < 6) {
 			return NIGHT;

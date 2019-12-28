@@ -1,5 +1,9 @@
 package de.andrena.justintime.application;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 import de.andrena.justintime.application.domain.CalendarDateSource;
 import de.andrena.justintime.application.domain.WeatherSource;
 import de.andrena.justintime.application.fake.EsotericWeatherSource;
@@ -37,12 +41,20 @@ public class Server extends AbstractVerticle {
 
 	public void show(RoutingContext context) {
 		CalendarDateSource time = new CalendarDateSource();
-		context.data().put("date", time.getDate());
-		context.data().put("hours", time.getHours());
+		context.data().put("date", mediumDate(time.getDate()));
+		context.data().put("hours", time.getHoursOfDay());
 		context.data().put("season", time.getSeason());
 		context.data().put("weekday", time.getWeekday());
 		context.data().put("daytime", time.getDaytime());
 		context.data().put("weather", weather.getWeather(time));
+
+		engine.render(context.data(), "src/main/resources/index.html", res -> {
+			if (res.succeeded()) {
+				context.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
+			} else {
+				context.fail(res.cause());
+			}
+		});
 	}
 
 	public void predict(RoutingContext context) {
@@ -52,8 +64,8 @@ public class Server extends AbstractVerticle {
 		int hours = Integer.parseInt(context.request().getParam("hours"));
 
 		CalendarDateSource time = new CalendarDateSource(year, month, day, hours);
-		context.data().put("date", time.getDate());
-		context.data().put("hours", time.getHours());
+		context.data().put("date", mediumDate(time.getDate()));
+		context.data().put("hours", time.getHoursOfDay());
 		context.data().put("season", time.getSeason());
 		context.data().put("weekday", time.getWeekday());
 		context.data().put("daytime", time.getDaytime());
@@ -71,5 +83,9 @@ public class Server extends AbstractVerticle {
 	public static void main(String[] args) {
 		Vertx vertx = Vertx.vertx();
 		vertx.deployVerticle(new Server());
+	}
+
+	public static String mediumDate(LocalDateTime date) {
+		return DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(date);
 	}
 }

@@ -2,6 +2,10 @@ package de.andrena.justintime.logging;
 
 import static net.amygdalum.xrayinterface.XRayInterface.xray;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 import de.andrena.justintime.application.Server;
 import de.andrena.justintime.application.domain.CalendarDateSource;
 import de.andrena.justintime.application.domain.WeatherSource;
@@ -20,8 +24,8 @@ public class LoggingTemplate {
 			int hours = Integer.parseInt(context.request().getParam("hours"));
 
 			CalendarDateSource time = new CalendarDateSource(year, month, day, hours);
-			System.out.println("date:" + time.getDate());
-			System.out.println("hours:" + time.getHours());
+			System.out.println("date:" + formatDate(time.getDate()));
+			System.out.println("hours:" + time.getHoursOfDay());
 			System.out.println("season:" + time.getSeason());
 			System.out.println("weekday:" + time.getWeekday());
 			System.out.println("daytime:" + time.getDaytime());
@@ -29,6 +33,10 @@ public class LoggingTemplate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static String formatDate(LocalDateTime date) {
+		return DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(date);
 	}
 
 	public interface WithWeather {
