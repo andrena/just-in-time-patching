@@ -7,21 +7,27 @@ import static de.andrena.justintime.application.domain.Daytime.NIGHT;
 import static de.andrena.justintime.application.domain.Daytime.NOON;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
-public class CalendarDateSource implements DateSource {
+public class LocalDateTimeSource implements DateSource {
 
 	public LocalDateTime date;
 
-	public CalendarDateSource(LocalDateTime date) {
+	public LocalDateTimeSource(LocalDateTime date) {
 		this.date = date;
 	}
 
-	public CalendarDateSource(int year, int month, int day, int hours) {
+	public LocalDateTimeSource(int year, int month, int day, int hours) {
 		this.date = LocalDateTime.of(year, month, day, hours, 0);
 	}
 
-	public CalendarDateSource() {
+	public LocalDateTimeSource() {
 		this(LocalDateTime.now());
+	}
+	
+	@Override
+	public long getMillis() {
+		return date.toInstant(ZoneOffset.UTC).toEpochMilli();
 	}
 	
 	public LocalDateTime getDate() {

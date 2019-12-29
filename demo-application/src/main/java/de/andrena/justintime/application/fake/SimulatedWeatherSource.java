@@ -14,7 +14,6 @@ import static de.andrena.justintime.application.domain.Temperature.MODERATE;
 import static de.andrena.justintime.application.domain.Temperature.WARM;
 
 import de.andrena.justintime.application.domain.DateSource;
-import de.andrena.justintime.application.domain.Daytime;
 import de.andrena.justintime.application.domain.Precipitation;
 import de.andrena.justintime.application.domain.Season;
 import de.andrena.justintime.application.domain.Temperature;
@@ -36,18 +35,17 @@ public class SimulatedWeatherSource implements WeatherSource {
 
 	@Override
 	public Weather getWeather(DateSource date) {
-		Daytime daytime = date.getDaytime();
+		long hours = date.getMillis() / 1000 / 60 / 60;
 		Season season = date.getSeason();
-		
-		
+
 		return new Weather(
-			precipitation.value(daytime.hours(), precipitationForSeason(season)),
-			temperature.value(daytime.hours(), temperatureForSeason(season)),
-			wind.value(daytime.hours(), windForSeason(season)));
+			precipitation.value(hours, precipitationForSeason(season)),
+			temperature.value(hours, temperatureForSeason(season)),
+			wind.value(hours, windForSeason(season)));
 	}
-	
+
 	public static Precipitation[] precipitationForSeason(Season season) {
-		switch(season) {
+		switch (season) {
 		case SPRING:
 			return new Precipitation[] {DRY, DRY, NORMAL, NORMAL, NORMAL, MIST, MIST, DRIZZLE, DRIZZLE, RAIN};
 		case SUMMER:
@@ -61,7 +59,7 @@ public class SimulatedWeatherSource implements WeatherSource {
 	}
 
 	public static Temperature[] temperatureForSeason(Season season) {
-		switch(season) {
+		switch (season) {
 		case SPRING:
 			return new Temperature[] {WARM, MODERATE, COOL, COLD};
 		case SUMMER:
@@ -91,16 +89,16 @@ public class SimulatedWeatherSource implements WeatherSource {
 		}
 
 		public <T> T value(double base, T[] values) {
-			double value = Math.sin(base / f1 + Math.PI) * f1 +
-				Math.sin(base / f2 + 2 * Math.PI) * f2 +
-				Math.sin(base / f3 + 3 * Math.PI) * f3;
+			double value = Math.sin(base / f1 + Math.PI) * f1
+				+ Math.sin(base / f2 + 2 * Math.PI) * f2
+				+ Math.sin(base / f3 + 3 * Math.PI) * f3;
 
 			double max = f1 + f2 + f3;
 			double min = -max;
-			
+
 			double relativeValue = (value - min) / (max - min);
 			int index = (int) (relativeValue * (double) values.length);
-			
+
 			return values[index];
 		}
 

@@ -8,5 +8,6 @@ public interface DateSource {
 	int getMonth();
 	int getDayOfMonth();
 	int getHoursOfDay();
+	long getMillis();
 
 }

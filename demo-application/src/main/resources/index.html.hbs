@@ -1,30 +1,35 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" href="/static/css/weather.css">
 </head>
-<body>
-<h2>Wetter am {{date}} - {{hours}} Uhr</h2>
+<body class="{{season}} {{daytime}} {{weather.wind}} {{weather.precipitation}} {{weather.temperature}}">
+<h2><a href="{{prevhour}}">-</a> Wetter am {{date}} - {{hours}} Uhr <a href="{{nexthour}}">+</a></h2>
 
-<table>
-<tr>
-<td>Wochentag</td><td>{{weekday}}</td>
-<tr>
-<tr>
-<td>Jahreszeit</td><td>{{season}}</td>
-<tr>
-<tr>
-<td>Tageszeit</td><td>{{daytime}}</td>
-<tr>
-<tr>
-<td>Wind</td><td>{{weather.wind}}</td>
-<tr>
-<tr>
-<td>Niederschlag</td><td>{{weather.precipitation}}</td>
-<tr>
-<tr>
-<td>Temperatur</td><td>{{weather.temperature}}</td>
-<tr>
-</table>
+<div class="icons">
+<div class="daytime"></div><div class="wind"></div><div class="precipitation"></div><div  class="temperature"></div>
+</div>
+
+<div class="stats">
+<div>
+<div>Wochentag</div><div>{{weekday}}</div>
+</div>
+<div>
+<div>Jahreszeit</div><div>{{season}}</div>
+</div>
+<div>
+<div>Tageszeit</div><div>{{daytime}}</div>
+</div>
+<div>
+<div>Wind</div><div>{{weather.wind}}</div>
+</div>
+<div>
+<div>Niederschlag</div><div>{{weather.precipitation}}</div>
+</div>
+<div>
+<div>Temperatur</div><div>{{weather.temperature}}</div>
+</div>
+</div>
 
 </body>
 </html>

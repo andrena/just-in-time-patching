@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-import de.andrena.justintime.application.domain.CalendarDateSource;
+import de.andrena.justintime.application.domain.LocalDateTimeSource;
 import de.andrena.justintime.application.domain.WeatherSource;
 import de.andrena.justintime.application.fake.EsotericWeatherSource;
 import de.andrena.justintime.application.fake.SimulatedWeatherSource;
@@ -15,6 +15,7 @@ import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.common.template.TemplateEngine;
+import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 
 public class Server extends AbstractVerticle {
@@ -30,8 +31,9 @@ public class Server extends AbstractVerticle {
 	}
 
 	public void start() {
-		this.engine = HandlebarsTemplateEngine.create(vertx);
+		this.engine = createEngine();
 		this.router = Router.router(vertx);
+		router.route("/static/*").handler(StaticHandler.create("src/main/resources"));
 		router.route("/day/:year/:month/:day/:hours").handler(this::predict);
 		router.route().handler(this::show);
 
@@ -39,8 +41,16 @@ public class Server extends AbstractVerticle {
 		server.requestHandler(router).listen(8080);
 	}
 
+	private TemplateEngine createEngine() {
+		HandlebarsTemplateEngine engine = HandlebarsTemplateEngine.create(vertx);
+		engine.setMaxCacheSize(0);
+		return engine;
+	}
+
 	public void show(RoutingContext context) {
-		CalendarDateSource time = new CalendarDateSource();
+ 		LocalDateTimeSource time = new LocalDateTimeSource();
+		context.data().put("nexthour", nextHourLink(time.getDate()));
+		context.data().put("prevhour", prevHourLink(time.getDate()));
 		context.data().put("date", mediumDate(time.getDate()));
 		context.data().put("hours", time.getHoursOfDay());
 		context.data().put("season", time.getSeason());
@@ -63,7 +73,9 @@ public class Server extends AbstractVerticle {
 		int day = Integer.parseInt(context.request().getParam("day"));
 		int hours = Integer.parseInt(context.request().getParam("hours"));
 
-		CalendarDateSource time = new CalendarDateSource(year, month, day, hours);
+		LocalDateTimeSource time = new LocalDateTimeSource(year, month, day, hours);
+		context.data().put("nexthour", nextHourLink(time.getDate()));
+		context.data().put("prevhour", prevHourLink(time.getDate()));
 		context.data().put("date", mediumDate(time.getDate()));
 		context.data().put("hours", time.getHoursOfDay());
 		context.data().put("season", time.getSeason());
@@ -80,6 +92,16 @@ public class Server extends AbstractVerticle {
 		});
 	}
 
+	private String nextHourLink(LocalDateTime date) {
+		LocalDateTime next = date.plusHours(1);
+		return "/day/" + next.getYear() + "/" + next.getMonthValue() + "/" + next.getDayOfMonth() + "/" + next.getHour();
+	}
+
+	private String prevHourLink(LocalDateTime date) {
+		LocalDateTime next = date.minusHours(1);
+		return "/day/" + next.getYear() + "/" + next.getMonthValue() + "/" + next.getDayOfMonth() + "/" + next.getHour();
+	}
+	
 	public static void main(String[] args) {
 		Vertx vertx = Vertx.vertx();
 		vertx.deployVerticle(new Server());
