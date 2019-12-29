@@ -13,7 +13,7 @@ import net.bytebuddy.asm.Advice;
 public class LoggingTemplate {
 
 	@Advice.OnMethodEnter
-	public static void exit(@Advice.This Server self, @Advice.Argument(0) RoutingContext context, @Advice.FieldValue("weather") WeatherSource weather) {
+	public static void predict(@Advice.This Server self, @Advice.Argument(0) RoutingContext context, @Advice.FieldValue("weather") WeatherSource weather) {
 		try {
 			int year = Integer.parseInt(context.request().getParam("year"));
 			int month = Integer.parseInt(context.request().getParam("month"));
