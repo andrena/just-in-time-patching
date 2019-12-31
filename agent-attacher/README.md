@@ -7,3 +7,8 @@
   * <agent-jar> is a jar containing a java agent
   * <main-class> is the main class of the java process (name parts will be sufficient) to attach to (a list is printed if no match found)
   * <action> `attach` a new agent or `detach` an existing one 
+
+ ## Configuring eclipse:
+ 
+ * make sure to have the classpath variable `M2_REPO` (pointing to your m2 repo) defined
+ * also define a string substitution for `M2_REPO` (pointing to your m2 repo)
