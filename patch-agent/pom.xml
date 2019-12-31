@@ -6,10 +6,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.andrena.justintime</groupId>
-		<artifactId>remote-agent-demo</artifactId>
+		<artifactId>just-in-time-patching</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>demo-patch-agent</artifactId>
+	<artifactId>patch-agent</artifactId>
 	<name>${project.groupId}:${project.artifactId}</name>
 
 	<properties>

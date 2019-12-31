@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.andrena.justintime</groupId>
-	<artifactId>remote-agent-demo</artifactId>
+	<artifactId>just-in-time-patching</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -27,9 +27,9 @@
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:git@github.com:almondtools/remote-agent-demo.git</connection>
-		<developerConnection>scm:git:git@github.com:almondtools/remote-agent-demo.git</developerConnection>
-		<url>git@github.com:almondtools/remote-agent-demo.git</url>
+		<connection>scm:git:git@github.com:almondtools/just-in-time-patching.git</connection>
+		<developerConnection>scm:git:git@github.com:almondtools/just-in-time-patching.git</developerConnection>
+		<url>git@github.com:almondtools/just-in-time-patching.git</url>
 		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
@@ -47,10 +47,10 @@
 
 	<modules>
 		<module>demo-application</module>
-		<module>demo-agent-attacher</module>
-		<module>demo-log-agent</module>
-		<module>demo-test-agent</module>
-		<module>demo-patch-agent</module>
+		<module>agent-attacher</module>
+		<module>log-agent</module>
+		<module>test-agent</module>
+		<module>patch-agent</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

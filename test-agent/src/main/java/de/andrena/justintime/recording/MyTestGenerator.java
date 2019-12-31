@@ -9,7 +9,7 @@ public class MyTestGenerator extends ScheduledTestGenerator {
 
     public MyTestGenerator(AgentConfiguration config) {
         super(config);
-        this.generateTo = Paths.get("../demo-test-agent/target/generated");
+        this.generateTo = Paths.get("../test-agent/target/generated");
 		this.counterInterval = 2;
 		this.classNameTemplate = "${class}${counter}Test";
         this.dumpOnShutdown(true);
