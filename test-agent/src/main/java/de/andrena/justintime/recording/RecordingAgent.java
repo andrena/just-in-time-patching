@@ -21,6 +21,7 @@ public class RecordingAgent extends TestRecorderAgent {
 
 	public RecordingAgent(Instrumentation instrumentation) {
 		super(instrumentation, configure());
+		this.prepareInstrumentations();
 	}
 
 	private static AgentConfiguration configure() {
@@ -47,7 +48,6 @@ public class RecordingAgent extends TestRecorderAgent {
 			agents.clear();
 		} else {
 			RecordingAgent agent = new RecordingAgent(instrumentation);
-			agent.prepareInstrumentations();
 			System.out.println("attaching " + System.identityHashCode(agent));
 			agents.add(agent);
 		}
