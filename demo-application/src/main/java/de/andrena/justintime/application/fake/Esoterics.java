@@ -9,7 +9,7 @@ public class Esoterics {
 	private int sourceOfKnowledge;
 
 	public boolean badStellarConfiguration(DateSource date) {
-		sourceOfKnowledge = (sourceOfKnowledge + 1) % 6;
+		sourceOfKnowledge = (sourceOfKnowledge + 1) % 7;
 		return date.getDayOfMonth() % sourceOfKnowledge == 0;  
 	}
 

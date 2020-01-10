@@ -22,7 +22,6 @@ public class LogAgent {
 		Transformer transformer = (builder, type, loader, module) -> builder
 			.visit(Advice.to(LoggingTemplate.class).on(ElementMatchers.hasMethodName("predict")));
 		runningTransformer = new AgentBuilder.Default()
-			.ignore(ElementMatchers.none())
 			.disableClassFormatChanges()
 			.with(new AgentBuilder.CircularityLock.Default())
 			.with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)

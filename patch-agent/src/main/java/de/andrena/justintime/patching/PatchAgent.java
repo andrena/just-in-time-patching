@@ -23,7 +23,6 @@ public class PatchAgent {
 			.method(ElementMatchers.hasMethodName("badStellarConfiguration"))
 			.intercept(MethodDelegation.to(PatchingTemplate.class));
 		runningTransformer = new AgentBuilder.Default()
-			.ignore(ElementMatchers.none())
 			.disableClassFormatChanges()
 			.with(new AgentBuilder.CircularityLock.Default())
 			.with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
