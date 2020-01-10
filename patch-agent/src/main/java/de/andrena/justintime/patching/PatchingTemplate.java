@@ -11,7 +11,7 @@ public class PatchingTemplate {
 
 	public static boolean badStellarConfiguration(@This Esoterics self, @Argument(0) DateSource date) {
 		WithSourceOfKnowledge openSelf = xray(self).to(WithSourceOfKnowledge.class);
-		openSelf.setSourceOfKnowledge((openSelf.getSourceOfKnowledge() + 1) % 6);
+		openSelf.setSourceOfKnowledge((openSelf.getSourceOfKnowledge() + 1) % 7);
 		int sourceOfKnowledge = openSelf.getSourceOfKnowledge();
 		if (sourceOfKnowledge == 0) {
 			return false;
