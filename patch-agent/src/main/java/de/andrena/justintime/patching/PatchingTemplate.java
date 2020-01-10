@@ -3,7 +3,7 @@ package de.andrena.justintime.patching;
 import static net.amygdalum.xrayinterface.XRayInterface.xray;
 
 import de.andrena.justintime.application.domain.DateSource;
-import de.andrena.justintime.application.fake.Esoterics;
+import de.andrena.justintime.application.impl.Esoterics;
 import net.bytebuddy.implementation.bind.annotation.Argument;
 import net.bytebuddy.implementation.bind.annotation.This;
 

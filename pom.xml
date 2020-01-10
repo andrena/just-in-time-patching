@@ -74,6 +74,16 @@
 				<artifactId>testrecorder-agent</artifactId>
 				<version>0.10.2-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>5.5.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>5.5.2</version>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>

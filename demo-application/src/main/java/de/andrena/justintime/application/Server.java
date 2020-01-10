@@ -6,8 +6,8 @@ import java.time.format.FormatStyle;
 
 import de.andrena.justintime.application.domain.LocalDateTimeSource;
 import de.andrena.justintime.application.domain.WeatherSource;
-import de.andrena.justintime.application.fake.EsotericWeatherSource;
 import de.andrena.justintime.application.fake.SimulatedWeatherSource;
+import de.andrena.justintime.application.impl.EsotericWeatherSource;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpHeaders;

@@ -1,4 +1,4 @@
-package de.andrena.justintime.application.fake;
+package de.andrena.justintime.application.impl;
 
 import de.andrena.justintime.application.domain.DateSource;
 import de.andrena.justintime.application.domain.Weather;
@@ -7,7 +7,14 @@ import de.andrena.justintime.application.domain.Weekday;
 public class Esoterics {
 	
 	private int sourceOfKnowledge;
+	
+	public Esoterics() {
+	}
 
+	public Esoterics(int sourceOfKnowledge) {
+		this.sourceOfKnowledge = sourceOfKnowledge;
+	}
+	
 	public boolean badStellarConfiguration(DateSource date) {
 		sourceOfKnowledge = (sourceOfKnowledge + 1) % 7;
 		return date.getDayOfMonth() % sourceOfKnowledge == 0;  

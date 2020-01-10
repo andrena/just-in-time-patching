@@ -1,4 +1,4 @@
-package de.andrena.justintime.application.fake;
+package de.andrena.justintime.application.impl;
 
 import de.andrena.justintime.application.domain.DateSource;
 import de.andrena.justintime.application.domain.Weather;
@@ -10,8 +10,12 @@ public class EsotericWeatherSource implements WeatherSource {
 	private Esoterics esoterics;
 
 	public EsotericWeatherSource(WeatherSource source) {
+		this(source, new Esoterics());
+	}
+
+	public EsotericWeatherSource(WeatherSource source, Esoterics esoterics) {
 		this.source = source;
-		this.esoterics = new Esoterics();
+		this.esoterics = esoterics;
 	}
 
 	@Override
