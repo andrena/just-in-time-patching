@@ -1,3 +1,8 @@
+body {
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 @font-face {
   font-family: 'weathericons';
   src: url('/static/svg/weathericons-regular-webfont.eot');
@@ -28,16 +33,16 @@ h2 {
 
 
 .SPRING {
-  background-color: green
+  background-image: url('/static/jpg/spring.JPG');
 }
 .SUMMER {
-  background-color: yellow
+  background-image: url('/static/jpg/summer.JPG');
 }
 .FALL {
-  background-color: brown
+  background-image: url('/static/jpg/fall.JPG');
 }
 .WINTER {
-  background-color: white
+  background-image: url('/static/jpg/winter.JPG');
 }
 
 .icons {
