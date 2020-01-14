@@ -72,7 +72,7 @@
 			<dependency>
 				<groupId>net.amygdalum</groupId>
 				<artifactId>testrecorder-agent</artifactId>
-				<version>0.10.2-SNAPSHOT</version>
+				<version>0.10.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
