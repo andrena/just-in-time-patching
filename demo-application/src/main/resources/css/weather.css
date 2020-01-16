@@ -1,6 +1,7 @@
 body {
   background-attachment: fixed;
   background-size: cover;
+  font-family: sans-serif;
 }
 
 @font-face {

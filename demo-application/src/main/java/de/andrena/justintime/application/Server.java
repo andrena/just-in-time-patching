@@ -25,11 +25,11 @@ public class Server extends AbstractVerticle {
 
 	private WeatherSource weather;
 
-
 	public Server() {
 		weather = new EsotericWeatherSource(new SimulatedWeatherSource());
 	}
 
+	@Override
 	public void start() {
 		this.engine = createEngine();
 		this.router = Router.router(vertx);
@@ -39,6 +39,8 @@ public class Server extends AbstractVerticle {
 
 		HttpServer server = vertx.createHttpServer();
 		server.requestHandler(router).listen(8080);
+
+		System.out.println("Weather application started");
 	}
 
 	private TemplateEngine createEngine() {
@@ -48,23 +50,7 @@ public class Server extends AbstractVerticle {
 	}
 
 	public void show(RoutingContext context) {
- 		LocalDateTimeSource time = new LocalDateTimeSource();
-		context.data().put("nexthour", nextHourLink(time.getDate()));
-		context.data().put("prevhour", prevHourLink(time.getDate()));
-		context.data().put("date", mediumDate(time.getDate()));
-		context.data().put("hours", time.getHoursOfDay());
-		context.data().put("season", time.getSeason());
-		context.data().put("weekday", time.getWeekday());
-		context.data().put("daytime", time.getDaytime());
-		context.data().put("weather", weather.getWeather(time));
-
-		engine.render(context.data(), "src/main/resources/index.html", res -> {
-			if (res.succeeded()) {
-				context.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
-			} else {
-				context.fail(res.cause());
-			}
-		});
+		predict(context, new LocalDateTimeSource());
 	}
 
 	public void predict(RoutingContext context) {
@@ -73,17 +59,28 @@ public class Server extends AbstractVerticle {
 		int day = Integer.parseInt(context.request().getParam("day"));
 		int hours = Integer.parseInt(context.request().getParam("hours"));
 
-		LocalDateTimeSource time = new LocalDateTimeSource(year, month, day, hours);
-		context.data().put("nexthour", nextHourLink(time.getDate()));
-		context.data().put("prevhour", prevHourLink(time.getDate()));
-		context.data().put("date", mediumDate(time.getDate()));
-		context.data().put("hours", time.getHoursOfDay());
-		context.data().put("season", time.getSeason());
-		context.data().put("weekday", time.getWeekday());
-		context.data().put("daytime", time.getDaytime());
-		context.data().put("weather", weather.getWeather(time));
+		predict(context, new LocalDateTimeSource(year, month, day, hours));
+	}
 
-		engine.render(context.data(), "src/main/resources/index.html", res -> {
+	private void predict(RoutingContext context, LocalDateTimeSource time) {
+		try {
+			context.data().put("nexthour", nextHourLink(time.getDate()));
+			context.data().put("prevhour", prevHourLink(time.getDate()));
+			context.data().put("date", mediumDate(time.getDate()));
+			context.data().put("hours", time.getHoursOfDay());
+			context.data().put("season", time.getSeason());
+			context.data().put("weekday", time.getWeekday());
+			context.data().put("daytime", time.getDaytime());
+			context.data().put("weather", weather.getWeather(time));
+
+			render(context, "src/main/resources/index.html");
+		} catch (RuntimeException e) {
+			render(context, "src/main/resources/error.html");
+		}
+	}
+	
+	private void render(RoutingContext context, String template) {
+		engine.render(context.data(), template, res -> {
 			if (res.succeeded()) {
 				context.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
 			} else {
@@ -101,7 +98,7 @@ public class Server extends AbstractVerticle {
 		LocalDateTime next = date.minusHours(1);
 		return "/day/" + next.getYear() + "/" + next.getMonthValue() + "/" + next.getDayOfMonth() + "/" + next.getHour();
 	}
-	
+
 	public static void main(String[] args) {
 		Vertx vertx = Vertx.vertx();
 		vertx.deployVerticle(new Server());
