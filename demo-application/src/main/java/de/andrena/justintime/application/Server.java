@@ -3,8 +3,10 @@ package de.andrena.justintime.application;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Map;
 
 import de.andrena.justintime.application.domain.LocalDateTimeSource;
+import de.andrena.justintime.application.domain.Weather;
 import de.andrena.justintime.application.domain.WeatherSource;
 import de.andrena.justintime.application.fake.SimulatedWeatherSource;
 import de.andrena.justintime.application.impl.EsotericWeatherSource;
@@ -12,6 +14,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerRequest;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.common.template.TemplateEngine;
@@ -36,6 +39,7 @@ public class Server extends AbstractVerticle {
 		router.route("/static/*").handler(StaticHandler.create("src/main/resources"));
 		router.route("/day/:year/:month/:day/:hours").handler(this::predict);
 		router.route().handler(this::show);
+		router.errorHandler(500, this::error);
 
 		HttpServer server = vertx.createHttpServer();
 		server.requestHandler(router).listen(8080);
@@ -50,35 +54,42 @@ public class Server extends AbstractVerticle {
 	}
 
 	public void show(RoutingContext context) {
-		predict(context, new LocalDateTimeSource());
+		Weather w = weather.getWeather(new LocalDateTimeSource());
+		fillResponse(context.data(), new LocalDateTimeSource(), w);
+		render(context, "src/main/resources/index.html");
 	}
 
 	public void predict(RoutingContext context) {
-		int year = Integer.parseInt(context.request().getParam("year"));
-		int month = Integer.parseInt(context.request().getParam("month"));
-		int day = Integer.parseInt(context.request().getParam("day"));
-		int hours = Integer.parseInt(context.request().getParam("hours"));
-
-		predict(context, new LocalDateTimeSource(year, month, day, hours));
+		LocalDateTimeSource time = extractTimeFromRequest(context.request());
+		Weather w = weather.getWeather(time);
+		fillResponse(context.data(), time, w);
+		render(context, "src/main/resources/index.html");
 	}
 
-	private void predict(RoutingContext context, LocalDateTimeSource time) {
-		try {
-			context.data().put("nexthour", nextHourLink(time.getDate()));
-			context.data().put("prevhour", prevHourLink(time.getDate()));
-			context.data().put("date", mediumDate(time.getDate()));
-			context.data().put("hours", time.getHoursOfDay());
-			context.data().put("season", time.getSeason());
-			context.data().put("weekday", time.getWeekday());
-			context.data().put("daytime", time.getDaytime());
-			context.data().put("weather", weather.getWeather(time));
-
-			render(context, "src/main/resources/index.html");
-		} catch (RuntimeException e) {
-			render(context, "src/main/resources/error.html");
-		}
+	public void error(RoutingContext context) {
+		render(context, "src/main/resources/error.html");
 	}
-	
+
+	private LocalDateTimeSource extractTimeFromRequest(HttpServerRequest request) {
+		int year = Integer.parseInt(request.getParam("year"));
+		int month = Integer.parseInt(request.getParam("month"));
+		int day = Integer.parseInt(request.getParam("day"));
+		int hours = Integer.parseInt(request.getParam("hours"));
+
+		return new LocalDateTimeSource(year, month, day, hours);
+	}
+
+	private void fillResponse(Map<String, Object> response, LocalDateTimeSource time, Weather w) {
+		response.put("nexthour", nextHourLink(time.getDate()));
+		response.put("prevhour", prevHourLink(time.getDate()));
+		response.put("date", mediumDate(time.getDate()));
+		response.put("hours", time.getHoursOfDay());
+		response.put("season", time.getSeason());
+		response.put("weekday", time.getWeekday());
+		response.put("daytime", time.getDaytime());
+		response.put("weather", w);
+	}
+
 	private void render(RoutingContext context, String template) {
 		engine.render(context.data(), template, res -> {
 			if (res.succeeded()) {
