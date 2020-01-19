@@ -5,19 +5,19 @@ import de.andrena.justintime.application.domain.Weather;
 import de.andrena.justintime.application.domain.Weekday;
 
 public class Esoterics {
-	
+
 	private int sourceOfKnowledge;
-	
+
 	public Esoterics() {
 	}
 
 	public Esoterics(int sourceOfKnowledge) {
 		this.sourceOfKnowledge = sourceOfKnowledge;
 	}
-	
+
 	public boolean badStellarConfiguration(DateSource date) {
 		sourceOfKnowledge = (sourceOfKnowledge + 1) % 7;
-		return date.getDayOfMonth() % sourceOfKnowledge == 0;  
+		return date.getHoursOfDay() % sourceOfKnowledge == 0;
 	}
 
 	public Weather applyEsotericKnowledge(DateSource date, Weather weather) {

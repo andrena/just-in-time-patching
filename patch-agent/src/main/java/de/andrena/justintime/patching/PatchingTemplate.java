@@ -16,7 +16,7 @@ public class PatchingTemplate {
 		if (sourceOfKnowledge == 0) {
 			return false;
 		}
-		return date.getDayOfMonth() % sourceOfKnowledge == 0;
+		return date.getHoursOfDay() % sourceOfKnowledge == 0;
 	}
 
 	public interface WithSourceOfKnowledge {
