@@ -38,7 +38,7 @@ public class Server extends AbstractVerticle {
 		this.router = Router.router(vertx);
 		router.route("/static/*").handler(StaticHandler.create("src/main/resources"));
 		router.route("/day/:year/:month/:day/:hours").handler(this::predict);
-		router.route().handler(this::show);
+		router.route("/").handler(this::show);
 		router.errorHandler(500, this::error);
 
 		HttpServer server = vertx.createHttpServer();
@@ -93,7 +93,9 @@ public class Server extends AbstractVerticle {
 	private void render(RoutingContext context, String template) {
 		engine.render(context.data(), template, res -> {
 			if (res.succeeded()) {
-				context.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/html").end(res.result());
+				context.response()
+					.putHeader(HttpHeaders.CONTENT_TYPE, "text/html")
+					.end(res.result());
 			} else {
 				context.fail(res.cause());
 			}
