@@ -69,6 +69,7 @@ h2 {
 
 .data-value {
 	font-weight: bold;
+	width: 6em;
 }
 
 .stats {
