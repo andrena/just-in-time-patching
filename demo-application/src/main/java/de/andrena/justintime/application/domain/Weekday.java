@@ -1,5 +1,15 @@
 package de.andrena.justintime.application.domain;
 
 public enum Weekday {
-	SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
+	SUNDAY("Sonntag"), MONDAY("Montag"), TUESDAY("Dienstag"), WEDNESDAY("Mittwoch"), THURSDAY("Donnerstag"), FRIDAY("Freitag"), SATURDAY("Samstag");
+
+	private String label;
+
+	Weekday(String label) {
+		this.label = label;
+	}
+
+	public String label() {
+		return label;
+	}
 }

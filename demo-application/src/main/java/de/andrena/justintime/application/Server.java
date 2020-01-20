@@ -26,10 +26,10 @@ public class Server extends AbstractVerticle {
 	private TemplateEngine engine;
 	private Router router;
 
-	private WeatherSource weather;
+	private WeatherSource weatherSource;
 
 	public Server() {
-		weather = new EsotericWeatherSource(new SimulatedWeatherSource());
+		weatherSource = new EsotericWeatherSource(new SimulatedWeatherSource());
 	}
 
 	@Override
@@ -54,14 +54,14 @@ public class Server extends AbstractVerticle {
 	}
 
 	public void show(RoutingContext context) {
-		Weather w = weather.getWeather(new LocalDateTimeSource());
-		fillResponse(context.data(), new LocalDateTimeSource(), w);
+		Weather weather = weatherSource.getWeather(new LocalDateTimeSource());
+		fillResponse(context.data(), new LocalDateTimeSource(), weather);
 		render(context, "src/main/resources/index.html");
 	}
 
 	public void predict(RoutingContext context) {
 		LocalDateTimeSource time = extractTimeFromRequest(context.request());
-		Weather w = weather.getWeather(time);
+		Weather w = weatherSource.getWeather(time);
 		fillResponse(context.data(), time, w);
 		render(context, "src/main/resources/index.html");
 	}
@@ -79,15 +79,23 @@ public class Server extends AbstractVerticle {
 		return new LocalDateTimeSource(year, month, day, hours);
 	}
 
-	private void fillResponse(Map<String, Object> response, LocalDateTimeSource time, Weather w) {
+	private void fillResponse(Map<String, Object> response, LocalDateTimeSource time, Weather weather) {
 		response.put("nexthour", nextHourLink(time.getDate()));
 		response.put("prevhour", prevHourLink(time.getDate()));
 		response.put("date", mediumDate(time.getDate()));
 		response.put("hours", time.getHoursOfDay());
 		response.put("season", time.getSeason());
+		response.put("seasonLabel", time.getSeason().label());
 		response.put("weekday", time.getWeekday());
+		response.put("weekdayLabel", time.getWeekday().label());
 		response.put("daytime", time.getDaytime());
-		response.put("weather", w);
+		response.put("daytimeLabel", time.getDaytime().label());
+		response.put("temperature", weather.getTemperature());
+		response.put("temperatureLabel", weather.getTemperature().label());
+		response.put("wind", weather.getWind());
+		response.put("windLabel", weather.getWind().label());
+		response.put("precipitation", weather.getPrecipitation());
+		response.put("precipitationLabel", weather.getPrecipitation().label());
 	}
 
 	private void render(RoutingContext context, String template) {

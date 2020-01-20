@@ -1,7 +1,13 @@
 package de.andrena.justintime.application.domain;
 
 public enum Temperature {
-	HOT, WARM, MODERATE, COOL, COLD, FREEZING;
+	HOT("heiß"), WARM("warm"), MODERATE("moderat"), COOL("kühl"), COLD("kalt"), FREEZING("eiskalt");
+
+	private String label;
+
+	Temperature(String label) {
+		this.label = label;
+	}
 
 	public Temperature worse() {
 		switch (this) {
@@ -16,5 +22,9 @@ public enum Temperature {
 		default:
 			return FREEZING;
 		}
+	}
+
+	public String label() {
+		return label;
 	}
 }

@@ -1,7 +1,13 @@
 package de.andrena.justintime.application.domain;
 
 public enum Wind {
-	CALM, BREEZE, WIND, STORM;
+	CALM("still"), BREEZE("mäßig"), WIND("windig"), STORM("stürmisch");
+
+	private String label;
+
+	Wind(String label) {
+		this.label = label;
+	}
 
 	public Wind worse() {
 		switch (this) {
@@ -12,5 +18,9 @@ public enum Wind {
 		default:
 			return STORM;
 		}
+	}
+
+	public String label() {
+		return label;
 	}
 }

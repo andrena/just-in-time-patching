@@ -3,7 +3,7 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<link rel="stylesheet" href="/static/css/weather.css">
 	</head>
-	<body class="{{season}} {{daytime}} {{weather.wind}} {{weather.precipitation}} {{weather.temperature}}">
+	<body class="{{season}} {{daytime}} {{wind}} {{precipitation}} {{temperature}}">
 		<h2>
 			<a href="{{prevhour}}"><</a>
 			Wetter am {{date}} – {{hours}} Uhr
@@ -20,27 +20,27 @@
 		<div class="stats data-box">
 			<div>
 				<div class="data-key">Wochentag</div>
-				<div class="data-value">{{weekday}}</div>
+				<div class="data-value">{{weekdayLabel}}</div>
 			</div>
 			<div>
 				<div class="data-key">Jahreszeit</div>
-				<div class="data-value">{{season}}</div>
+				<div class="data-value">{{seasonLabel}}</div>
 			</div>
 			<div>
 				<div class="data-key">Tageszeit</div>
-				<div class="data-value">{{daytime}}</div>
+				<div class="data-value">{{daytimeLabel}}</div>
 			</div>
 			<div>
 				<div class="data-key">Wind</div>
-				<div class="data-value">{{weather.wind}}</div>
+				<div class="data-value">{{windLabel}}</div>
 			</div>
 			<div>
 				<div class="data-key">Niederschlag</div>
-				<div class="data-value">{{weather.precipitation}}</div>
+				<div class="data-value">{{precipitationLabel}}</div>
 			</div>
 			<div>
 				<div class="data-key">Temperatur</div>
-				<div class="data-value">{{weather.temperature}}</div>
+				<div class="data-value">{{temperatureLabel}}</div>
 			</div>
 		</div>
 	</body>
