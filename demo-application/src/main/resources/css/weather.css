@@ -1,164 +1,199 @@
 body {
-  background-attachment: fixed;
-  background-size: cover;
-  font-family: sans-serif;
+	background-attachment: fixed;
+	background-size: cover;
+	font-size: 32px;
+	font-family: sans-serif;
+}
+
+.error {
+	color: red;
+	font-family: monospace;
+	text-align: center;
+	background-color: rgb(255, 160, 80);
 }
 
 @font-face {
-  font-family: 'weathericons';
-  src: url('/static/svg/weathericons-regular-webfont.eot');
-  src: url('/static/svg/weathericons-regular-webfont.eot?#iefix') format('embedded-opentype'), url('/static/svg/weathericons-regular-webfont.woff2') format('woff2'), url('/static/svg/weathericons-regular-webfont.woff') format('woff'), url('/static/svg/weathericons-regular-webfont.ttf') format('truetype'), url('/static/svg/weathericons-regular-webfont.svg#weather_iconsregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'weathericons';
+	src: url('/static/svg/weathericons-regular-webfont.eot');
+	src: url('/static/svg/weathericons-regular-webfont.eot?#iefix')
+		format('embedded-opentype'),
+		url('/static/svg/weathericons-regular-webfont.woff2') format('woff2'),
+		url('/static/svg/weathericons-regular-webfont.woff') format('woff'),
+		url('/static/svg/weathericons-regular-webfont.ttf') format('truetype'),
+		url('/static/svg/weathericons-regular-webfont.svg#weather_iconsregular')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+	text-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5);
+}
+
+a:hover {
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 h2 {
-  text-align:center;
+	text-align: center;
+	margin-top: 0.6em;
 }
+
+.data-box {
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 10px;
+}
+
 .stats {
-  float:right;
-  margin-right:20%;
-  display: table;
-  background-color: black;
-  color: white;
+	float: right;
+	margin-right: 20%;
+	display: table;
+	color: white;
 }
 
 .stats div {
-  display: table-row;
+	display: table-row;
 }
 
 .stats div div {
-  display: table-cell;
-  padding:5px;
+	display: table-cell;
+	padding: 10px;
 }
-
 
 .SPRING {
-  background-image: url('/static/jpg/spring.JPG');
+	background-image: url('/static/jpg/spring.JPG');
 }
+
 .SUMMER {
-  background-image: url('/static/jpg/summer.JPG');
+	background-image: url('/static/jpg/summer.JPG');
 }
+
 .FALL {
-  background-image: url('/static/jpg/fall.JPG');
+	background-image: url('/static/jpg/fall.JPG');
 }
+
 .WINTER {
-  background-image: url('/static/jpg/winter.JPG');
+	background-image: url('/static/jpg/winter.JPG');
 }
 
 .icons {
-  margin-left:20%;
-  background-color: black;
-  display: inline-block;
-  font-family: 'weathericons';
-  font-style: normal;
-  font-weight: normal;
-  line-height: 2;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin-left: 20%;
+	display: inline-block;
+	font-family: 'weathericons';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 2;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-.icons div  {
-  display:inline;
-  padding-left:5px;
-  padding-right:5px;
+.icons div {
+	display: inline;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
-.NIGHT .daytime:before  {
-  color: white;
-  content: "\f02e";
+.NIGHT .daytime:before {
+	color: white;
+	content: "\f02e";
 }
 
-.MORNING .daytime:before  {
-  color: orange;
-  content: "\f051";
+.MORNING .daytime:before {
+	color: orange;
+	content: "\f051";
 }
 
-.NOON .daytime:before  {
-  color: yellow;
-  content: "\f00d";
+.NOON .daytime:before {
+	color: yellow;
+	content: "\f00d";
 }
- 
-.AFTERNOON .daytime:before  {
-  color: yellow;
-  content: "\f00d";
-} 
 
-.EVENING .daytime:before  {
-  color: orange;
-  content: "\f052";
+.AFTERNOON .daytime:before {
+	color: yellow;
+	content: "\f00d";
+}
+
+.EVENING .daytime:before {
+	color: orange;
+	content: "\f052";
 }
 
 .CALM .wind:before {
+	
 }
 
 .BREEZE .wind:before {
-  color: white;
-  content: "\f021";
+	color: white;
+	content: "\f021";
 }
 
 .WIND .wind:before {
-  color: white;
-  content: "\f050";
+	color: white;
+	content: "\f050";
 }
 
 .STORM .wind:before {
-  color: white;
-  content: "\f056";
+	color: white;
+	content: "\f056";
 }
 
 .DRY .precipitation:before {
+	
 }
 
 .NORMAL .precipitation:before {
+	
 }
 
 .MIST .precipitation:before {
-  color: grey;
-  content: "\f014";
+	color: grey;
+	content: "\f014";
 }
 
 .DRIZZLE .precipitation:before {
-  color: blue;
-  content: "\f04e";
+	color: blue;
+	content: "\f04e";
 }
 
 .RAIN .precipitation:before {
-  color: blue;
-  content: "\f078";
+	color: blue;
+	content: "\f078";
 }
 
 .SNOW .precipitation:before {
-  color: white;
-  content: "\f076";
+	color: white;
+	content: "\f076";
 }
 
 .HOT .temperature:before {
-  color: red;
-  content: "\f055";
+	color: red;
+	content: "\f055";
 }
 
 .WARM .temperature:before {
-  color: orange;
-  content: "\f055";
+	color: orange;
+	content: "\f055";
 }
 
 .MODERATE .temperature:before {
-  color: lightgreen;
-  content: "\f055";
+	color: lightgreen;
+	content: "\f055";
 }
 
 .COOL .temperature:before {
-  color: blue;
-  content: "\f055";
+	color: blue;
+	content: "\f055";
 }
 
 .COLD .temperature:before {
-  color: lightblue;
-  content: "\f055";
+	color: lightblue;
+	content: "\f055";
 }
 
 .FREEZING .temperature:before {
-  color: white;
-  content: "\f055";
+	color: white;
+	content: "\f055";
 }

@@ -5,19 +5,19 @@
 	</head>
 	<body class="{{season}} {{daytime}} {{weather.wind}} {{weather.precipitation}} {{weather.temperature}}">
 		<h2>
-			<a href="{{prevhour}}">-</a>
-			Wetter am {{date}} - {{hours}} Uhr
-			<a href="{{nexthour}}">+</a>
+			<a href="{{prevhour}}"><</a>
+			Wetter am {{date}} – {{hours}} Uhr
+			<a href="{{nexthour}}">></a>
 		</h2>
 		
-		<div class="icons">
+		<div class="icons data-box">
 			<div class="daytime"></div>
 			<div class="wind"></div>
 			<div class="precipitation"></div>
 			<div  class="temperature"></div>
 		</div>
 		
-		<div class="stats">
+		<div class="stats data-box">
 			<div>
 				<div>Wochentag</div>
 				<div>{{weekday}}</div>
