@@ -16,8 +16,8 @@ public class Esoterics {
 	}
 
 	public boolean badStellarConfiguration(DateSource date) {
-		sourceOfKnowledge = (sourceOfKnowledge + 1) % 7;
-		return date.getHoursOfDay() % sourceOfKnowledge == 0;
+		updateSourceOfKnowledge();
+		return date.getHoursOfDay() % sourceOfKnowledge() == 0;
 	}
 
 	public Weather applyEsotericKnowledge(DateSource date, Weather weather) {
@@ -29,6 +29,14 @@ public class Esoterics {
 		} else {
 			return weather;
 		}
+	}
+
+	public void updateSourceOfKnowledge() {
+		sourceOfKnowledge = (sourceOfKnowledge + 1) % 7;
+	}
+
+	public int sourceOfKnowledge() {
+		return sourceOfKnowledge;
 	}
 
 }
