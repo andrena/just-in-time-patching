@@ -9,7 +9,7 @@ body {
 	color: red;
 	font-family: monospace;
 	text-align: center;
-	background-color: rgb(255, 160, 80);
+	background-color: rgb(90, 0, 0);
 }
 
 @font-face {
@@ -28,12 +28,12 @@ body {
 
 a {
 	text-decoration: none;
-	color: black;
-	text-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5);
+	color: inherit;
 }
 
 a:hover {
-	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	text-shadow: 0px 0px 10px white;
 }
 
 h2 {
@@ -41,10 +41,34 @@ h2 {
 	margin-top: 0.6em;
 }
 
+.SPRING h2 {
+	color: rgb(20, 70, 10);
+}
+
+.SUMMER h2 {
+	color: rgb(80, 30, 10);
+}
+
+.FALL h2 {
+	color: white;
+}
+
+.WINTER h2 {
+	color: rgb(30, 40, 100);
+}
+
 .data-box {
 	border-radius: 10px;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.6);
 	padding: 10px;
+}
+
+.data-key {
+	font-weight: normal;
+}
+
+.data-value {
+	font-weight: bold;
 }
 
 .stats {
@@ -121,8 +145,8 @@ h2 {
 	content: "\f052";
 }
 
-.CALM .wind:before {
-	
+.CALM .wind {
+	padding: 0;
 }
 
 .BREEZE .wind:before {
@@ -140,12 +164,12 @@ h2 {
 	content: "\f056";
 }
 
-.DRY .precipitation:before {
-	
+.DRY .precipitation {
+	padding: 0;
 }
 
-.NORMAL .precipitation:before {
-	
+.NORMAL .precipitation {
+	padding: 0;
 }
 
 .MIST .precipitation:before {
