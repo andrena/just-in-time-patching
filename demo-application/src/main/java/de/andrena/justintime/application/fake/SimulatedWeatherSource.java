@@ -3,7 +3,6 @@ package de.andrena.justintime.application.fake;
 import static de.andrena.justintime.application.domain.Precipitation.DRIZZLE;
 import static de.andrena.justintime.application.domain.Precipitation.DRY;
 import static de.andrena.justintime.application.domain.Precipitation.MIST;
-import static de.andrena.justintime.application.domain.Precipitation.NORMAL;
 import static de.andrena.justintime.application.domain.Precipitation.RAIN;
 import static de.andrena.justintime.application.domain.Precipitation.SNOW;
 import static de.andrena.justintime.application.domain.Temperature.COLD;
@@ -47,28 +46,28 @@ public class SimulatedWeatherSource implements WeatherSource {
 	public static Precipitation[] precipitationForSeason(Season season) {
 		switch (season) {
 		case SPRING:
-			return new Precipitation[] {DRY, DRY, NORMAL, NORMAL, NORMAL, MIST, MIST, DRIZZLE, DRIZZLE, RAIN};
+			return new Precipitation[] { DRY, DRY, DRY, DRY, MIST, MIST, MIST, DRIZZLE, DRIZZLE, RAIN };
 		case SUMMER:
-			return new Precipitation[] {DRY, DRY, DRY, NORMAL, NORMAL, NORMAL, NORMAL, MIST, DRIZZLE, RAIN};
+			return new Precipitation[] { DRY, DRY, DRY, DRY, DRY, DRY, DRY, DRY, DRIZZLE, RAIN };
 		case FALL:
-			return new Precipitation[] {DRY, DRY, NORMAL, NORMAL, NORMAL, MIST, DRIZZLE, DRIZZLE, RAIN, RAIN};
+			return new Precipitation[] { DRY, DRY, DRY, MIST, MIST, MIST, DRIZZLE, DRIZZLE, RAIN, RAIN };
 		case WINTER:
 		default:
-			return new Precipitation[] {DRY, DRY, NORMAL, NORMAL, NORMAL, MIST, DRIZZLE, RAIN, SNOW, SNOW};
+			return new Precipitation[] { DRY, DRY, DRY, MIST, MIST, DRIZZLE, RAIN, SNOW, SNOW, SNOW };
 		}
 	}
 
 	public static Temperature[] temperatureForSeason(Season season) {
 		switch (season) {
 		case SPRING:
-			return new Temperature[] {WARM, MODERATE, COOL, COLD};
+			return new Temperature[] { WARM, MODERATE, COOL, COLD };
 		case SUMMER:
-			return new Temperature[] {HOT, WARM, MODERATE, COOL};
+			return new Temperature[] { HOT, WARM, MODERATE, COOL };
 		case FALL:
-			return new Temperature[] {WARM, MODERATE, COOL, COLD};
+			return new Temperature[] { WARM, MODERATE, COOL, COLD };
 		case WINTER:
 		default:
-			return new Temperature[] {MODERATE, COOL, COLD, FREEZING};
+			return new Temperature[] { MODERATE, COOL, COLD, FREEZING };
 		}
 	}
 

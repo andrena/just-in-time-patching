@@ -168,10 +168,6 @@ h2 {
 	padding: 0;
 }
 
-.NORMAL .precipitation {
-	padding: 0;
-}
-
 .MIST .precipitation:before {
 	color: grey;
 	content: "\f014";

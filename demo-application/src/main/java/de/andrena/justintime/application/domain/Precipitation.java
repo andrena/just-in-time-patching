@@ -1,7 +1,7 @@
 package de.andrena.justintime.application.domain;
 
 public enum Precipitation {
-	DRY("trocken"), NORMAL("normal"), MIST("Nebel"), DRIZZLE("Nieselregen"), RAIN("Regen"), SNOW("Schnee");
+	DRY("trocken"), MIST("Nebel"), DRIZZLE("Nieselregen"), RAIN("Regen"), SNOW("Schnee");
 
 	private String label;
 
@@ -12,8 +12,6 @@ public enum Precipitation {
 	public Precipitation worse() {
 		switch (this) {
 		case DRY:
-			return NORMAL;
-		case NORMAL:
 			return MIST;
 		case MIST:
 			return DRIZZLE;
