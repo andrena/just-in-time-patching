@@ -8,8 +8,8 @@ import java.util.Map;
 import de.andrena.justintime.application.domain.LocalDateTimeSource;
 import de.andrena.justintime.application.domain.Weather;
 import de.andrena.justintime.application.domain.WeatherSource;
+import de.andrena.justintime.application.esoterics.EsotericWeatherSource;
 import de.andrena.justintime.application.fake.SimulatedWeatherSource;
-import de.andrena.justintime.application.impl.EsotericWeatherSource;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpHeaders;
@@ -34,6 +34,9 @@ public class Server extends AbstractVerticle {
 
 	@Override
 	public void start() {
+		System.out.println("Starting weather application");
+		System.out.println("...");
+
 		this.engine = createEngine();
 		this.router = Router.router(vertx);
 		router.route("/static/*").handler(StaticHandler.create("src/main/resources"));

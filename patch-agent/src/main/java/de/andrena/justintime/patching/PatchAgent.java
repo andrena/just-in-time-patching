@@ -20,7 +20,7 @@ public class PatchAgent {
 	public PatchAgent(Instrumentation instrumentation) {
 		this.instrumentation = instrumentation;
 		Transformer transformer = (builder, type, loader, module) -> builder
-			.method(ElementMatchers.hasMethodName("badStellarConfiguration"))
+			.method(ElementMatchers.hasMethodName("badStellarConstellation"))
 			.intercept(MethodDelegation.to(PatchingTemplate.class));
 		runningTransformer = new AgentBuilder.Default()
 			.disableClassFormatChanges()

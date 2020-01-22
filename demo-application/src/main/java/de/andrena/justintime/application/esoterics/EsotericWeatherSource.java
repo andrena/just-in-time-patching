@@ -1,4 +1,4 @@
-package de.andrena.justintime.application.impl;
+package de.andrena.justintime.application.esoterics;
 
 import de.andrena.justintime.application.domain.DateSource;
 import de.andrena.justintime.application.domain.Weather;
