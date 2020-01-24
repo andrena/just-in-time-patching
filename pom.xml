@@ -49,7 +49,7 @@
 		<module>demo-application</module>
 		<module>agent-attacher</module>
 		<module>log-agent</module>
-		<module>test-agent</module>
+		<module>recording-agent</module>
 		<module>patch-agent</module>
 	</modules>
 	<dependencyManagement>

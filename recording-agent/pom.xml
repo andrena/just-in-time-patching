@@ -9,7 +9,7 @@
 		<artifactId>just-in-time-patching</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>test-agent</artifactId>
+	<artifactId>recording-agent</artifactId>
 	<name>${project.groupId}:${project.artifactId}</name>
 
 	<properties>
