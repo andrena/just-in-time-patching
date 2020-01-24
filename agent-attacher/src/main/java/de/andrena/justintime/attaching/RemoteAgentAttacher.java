@@ -15,21 +15,25 @@ import sun.jvmstat.monitor.MonitoredVmUtil;
 import sun.jvmstat.monitor.VmIdentifier;
 
 /**
- * start with java de.andrena.justintime.attaching.RemoteAgentAttacher
- * <agent-jar> <main-class> [<action>] - agent jar is a jar containing a java
- * agent - main class is the main class of the java process to attach to (a list
- * is printed) - action `attach` a new agent or `detach` an existing one
+ * start with java de.andrena.justintime.attaching.RemoteAgentAttacher <agent-jar> <main-class> [<action>]
+ * - agent jar is a jar containing a java agent
+ * - main class is the main class of the java process to attach to (a list is printed) 
+ * - action `attach` a new agent or `detach` an existing one
  */
 public class RemoteAgentAttacher {
 
 	public static void main(String[] args) throws Exception {
-		File agentJar = Paths.get(args[0]).toFile();
-		String processId = processIdForMainClass(args[1]);
-		String action = args.length > 2 ? args[2] : "attach";
+		try {
+			File agentJar = Paths.get(args[0]).toFile();
+			String processId = processIdForMainClass(args[1]);
+			String action = args.length > 2 ? args[2] : "attach";
 
-		System.out.println("Connecting for " + action + ": " + processId);
-		ByteBuddyAgent.attach(agentJar, processId, action);
-		System.out.println("Disconnecting from " + action + ": " + processId);
+			System.out.println("Connecting for " + action + ": " + processId);
+			ByteBuddyAgent.attach(agentJar, processId, action);
+			System.out.println("Disconnecting from " + action + ": " + processId);
+		} catch (NoSuchElementException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static String processIdForMainClass(String mainClass) throws MonitorException, URISyntaxException {
