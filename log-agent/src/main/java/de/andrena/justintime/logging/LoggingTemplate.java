@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-import de.andrena.justintime.application.Server;
+import de.andrena.justintime.application.WeatherServer;
 import de.andrena.justintime.application.domain.LocalDateTimeSource;
 import io.vertx.ext.web.RoutingContext;
 import net.bytebuddy.asm.Advice;
@@ -12,7 +12,7 @@ import net.bytebuddy.asm.Advice;
 public class LoggingTemplate {
 
 	@Advice.OnMethodEnter
-	public static void predict(@Advice.This Server self, @Advice.Argument(0) RoutingContext context) {
+	public static void predict(@Advice.This WeatherServer self, @Advice.Argument(0) RoutingContext context) {
 		int year = Integer.parseInt(context.request().getParam("year"));
 		int month = Integer.parseInt(context.request().getParam("month"));
 		int day = Integer.parseInt(context.request().getParam("day"));
@@ -27,7 +27,7 @@ public class LoggingTemplate {
 	}
 
 	@Advice.OnMethodExit(onThrowable = Throwable.class)
-	public static void predict(@Advice.This Server self, @Advice.Thrown Throwable thrown) {
+	public static void predict(@Advice.This WeatherServer self, @Advice.Thrown Throwable thrown) {
 		if (thrown != null) {
 			thrown.printStackTrace();
 		}

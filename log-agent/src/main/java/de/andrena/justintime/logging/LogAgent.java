@@ -26,7 +26,7 @@ public class LogAgent {
 			.with(new AgentBuilder.CircularityLock.Default())
 			.with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
 			.with(new AgentBuilder.Listener.WithErrorsOnly(AgentBuilder.Listener.StreamWriting.toSystemError()))
-			.type(ElementMatchers.nameContains("Server"))
+			.type(ElementMatchers.nameContains("WeatherServer"))
 			.transform(transformer)
 			.installOn(instrumentation);
 	}

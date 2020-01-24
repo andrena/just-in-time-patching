@@ -21,22 +21,19 @@ import io.vertx.ext.web.common.template.TemplateEngine;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.templ.handlebars.HandlebarsTemplateEngine;
 
-public class Server extends AbstractVerticle {
+public class WeatherServer extends AbstractVerticle {
 
 	private TemplateEngine engine;
 	private Router router;
 
 	private WeatherSource weatherSource;
 
-	public Server() {
+	public WeatherServer() {
 		weatherSource = new EsotericWeatherSource(new SimulatedWeatherSource());
 	}
 
 	@Override
 	public void start() {
-		System.out.println("Starting weather application");
-		System.out.println("...");
-
 		this.engine = createEngine();
 		this.router = Router.router(vertx);
 		router.route("/static/*").handler(StaticHandler.create("src/main/resources"));
@@ -124,8 +121,11 @@ public class Server extends AbstractVerticle {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("Starting weather application");
+		System.out.println("...");
+
 		Vertx vertx = Vertx.vertx();
-		vertx.deployVerticle(new Server());
+		vertx.deployVerticle(new WeatherServer());
 	}
 
 	public static String mediumDate(LocalDateTime date) {
