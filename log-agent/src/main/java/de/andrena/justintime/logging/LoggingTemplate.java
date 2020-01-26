@@ -19,6 +19,8 @@ public class LoggingTemplate {
 		int hours = Integer.parseInt(context.request().getParam("hours"));
 
 		LocalDateTimeSource time = new LocalDateTimeSource(year, month, day, hours);
+		System.out.println();
+		System.out.println("entering predict method with:");
 		System.out.println("date:" + formatDate(time.getDate()));
 		System.out.println("hours:" + time.getHoursOfDay());
 		System.out.println("season:" + time.getSeason());
@@ -29,6 +31,8 @@ public class LoggingTemplate {
 	@Advice.OnMethodExit(onThrowable = Throwable.class)
 	public static void predict(@Advice.This WeatherServer self, @Advice.Thrown Throwable thrown) {
 		if (thrown != null) {
+			System.out.println();
+			System.out.println("predict method threw exception:");
 			thrown.printStackTrace();
 		}
 	}

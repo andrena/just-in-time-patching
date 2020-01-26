@@ -43,16 +43,16 @@ public class PatchAgent {
 	public static void agentmain(String arg, Instrumentation instrumentation) {
 		if (arg.equals("detach")) {
 			if (agents.isEmpty()) {
-				System.out.println("no agent to detach exists");
+				System.out.println("there is no PatchAgent to detach");
 			}
 			for (PatchAgent agent : agents) {
-				System.out.println("detaching " + System.identityHashCode(agent));
+				System.out.println("detaching PatchAgent " + System.identityHashCode(agent));
 				agent.shutdown();
 			}
 			agents.clear();
 		} else {
 			PatchAgent agent = new PatchAgent(instrumentation);
-			System.out.println("attaching " + System.identityHashCode(agent));
+			System.out.println("attaching PatchAgent " + System.identityHashCode(agent));
 			agents.add(agent);
 		}
 	}

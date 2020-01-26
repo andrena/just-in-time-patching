@@ -20,7 +20,8 @@ public class LogAgent {
 	public LogAgent(Instrumentation instrumentation) {
 		this.instrumentation = instrumentation;
 		Transformer transformer = (builder, type, loader, module) -> builder
-			.visit(Advice.to(LoggingTemplate.class).on(ElementMatchers.hasMethodName("predict")));
+			.visit(Advice.to(LoggingTemplate.class)
+				.on(ElementMatchers.hasMethodName("predict")));
 		runningTransformer = new AgentBuilder.Default()
 			.disableClassFormatChanges()
 			.with(new AgentBuilder.CircularityLock.Default())
@@ -42,16 +43,16 @@ public class LogAgent {
 	public static void agentmain(String arg, Instrumentation instrumentation) {
 		if (arg.equals("detach")) {
 			if (agents.isEmpty()) {
-				System.out.println("no agent to detach exists");
+				System.out.println("there is no LogAgent to detach");
 			}
 			for (LogAgent agent : agents) {
-				System.out.println("detaching " + System.identityHashCode(agent));
+				System.out.println("detaching LogAgent " + System.identityHashCode(agent));
 				agent.shutdown();
 			}
 			agents.clear();
 		} else {
 			LogAgent agent = new LogAgent(instrumentation);
-			System.out.println("attaching " + System.identityHashCode(agent));
+			System.out.println("attaching LogAgent " + System.identityHashCode(agent));
 			agents.add(agent);
 		}
 	}

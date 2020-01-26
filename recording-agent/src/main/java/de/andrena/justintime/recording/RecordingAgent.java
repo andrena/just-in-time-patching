@@ -39,16 +39,16 @@ public class RecordingAgent extends TestRecorderAgent {
 	public static void agentmain(String arg, Instrumentation instrumentation) {
 		if (arg.equals("detach")) {
 			if (agents.isEmpty()) {
-				System.out.println("no agent to detach exists");
+				System.out.println("there is no RecordingAgent to detach");
 			}
 			for (RecordingAgent agent : agents) {
-				System.out.println("detaching " + System.identityHashCode(agent));
+				System.out.println("detaching RecordingAgent " + System.identityHashCode(agent));
 				agent.shutdown();
 			}
 			agents.clear();
 		} else {
 			RecordingAgent agent = new RecordingAgent(instrumentation);
-			System.out.println("attaching " + System.identityHashCode(agent));
+			System.out.println("attaching RecordingAgent " + System.identityHashCode(agent));
 			agents.add(agent);
 		}
 	}
