@@ -20,7 +20,7 @@ public enum Precipitation {
 		}
 	}
 
-	public String label() {
+	public String getLabel() {
 		return label;
 	}
 }

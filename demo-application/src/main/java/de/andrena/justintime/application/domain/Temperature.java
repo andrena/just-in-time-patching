@@ -24,7 +24,7 @@ public enum Temperature {
 		}
 	}
 
-	public String label() {
+	public String getLabel() {
 		return label;
 	}
 }

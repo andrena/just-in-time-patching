@@ -38,7 +38,7 @@ public class WeatherServer extends AbstractVerticle {
 		this.router = Router.router(vertx);
 		router.route("/static/*").handler(StaticHandler.create("src/main/resources"));
 		router.route("/day/:year/:month/:day/:hours").handler(this::predict);
-		router.route("/").handler(this::show);
+		router.route("/").handler(this::prediictForNow);
 		router.errorHandler(500, this::error);
 
 		HttpServer server = vertx.createHttpServer();
@@ -53,7 +53,7 @@ public class WeatherServer extends AbstractVerticle {
 		return engine;
 	}
 
-	public void show(RoutingContext context) {
+	public void prediictForNow(RoutingContext context) {
 		Weather weather = weatherSource.getWeather(new LocalDateTimeSource());
 		fillResponse(context.data(), new LocalDateTimeSource(), weather);
 		render(context, "src/main/resources/index.html");
@@ -61,8 +61,8 @@ public class WeatherServer extends AbstractVerticle {
 
 	public void predict(RoutingContext context) {
 		LocalDateTimeSource time = extractTimeFromRequest(context.request());
-		Weather w = weatherSource.getWeather(time);
-		fillResponse(context.data(), time, w);
+		Weather weather = weatherSource.getWeather(time);
+		fillResponse(context.data(), time, weather);
 		render(context, "src/main/resources/index.html");
 	}
 
@@ -85,17 +85,11 @@ public class WeatherServer extends AbstractVerticle {
 		response.put("date", mediumDate(time.getDate()));
 		response.put("hours", time.getHoursOfDay());
 		response.put("season", time.getSeason());
-		response.put("seasonLabel", time.getSeason().label());
 		response.put("weekday", time.getWeekday());
-		response.put("weekdayLabel", time.getWeekday().label());
 		response.put("daytime", time.getDaytime());
-		response.put("daytimeLabel", time.getDaytime().label());
 		response.put("temperature", weather.getTemperature());
-		response.put("temperatureLabel", weather.getTemperature().label());
 		response.put("wind", weather.getWind());
-		response.put("windLabel", weather.getWind().label());
 		response.put("precipitation", weather.getPrecipitation());
-		response.put("precipitationLabel", weather.getPrecipitation().label());
 	}
 
 	private void render(RoutingContext context, String template) {
