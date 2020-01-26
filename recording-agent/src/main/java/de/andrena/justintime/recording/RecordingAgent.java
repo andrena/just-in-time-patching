@@ -37,7 +37,11 @@ public class RecordingAgent extends TestRecorderAgent {
 	}
 
 	public static void agentmain(String arg, Instrumentation instrumentation) {
-		if (arg.equals("detach")) {
+		if (arg.equals("attach")) {
+			RecordingAgent agent = new RecordingAgent(instrumentation);
+			System.out.println("attaching RecordingAgent " + System.identityHashCode(agent));
+			agents.add(agent);
+		} else if (arg.equals("detach")) {
 			if (agents.isEmpty()) {
 				System.out.println("there is no RecordingAgent to detach");
 			}
@@ -47,9 +51,7 @@ public class RecordingAgent extends TestRecorderAgent {
 			}
 			agents.clear();
 		} else {
-			RecordingAgent agent = new RecordingAgent(instrumentation);
-			System.out.println("attaching RecordingAgent " + System.identityHashCode(agent));
-			agents.add(agent);
+			System.out.println("Invalid argument for attaching/detaching RecordingAgent");
 		}
 	}
 

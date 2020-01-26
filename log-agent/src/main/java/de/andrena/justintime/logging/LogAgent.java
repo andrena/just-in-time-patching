@@ -41,7 +41,11 @@ public class LogAgent {
 	}
 
 	public static void agentmain(String arg, Instrumentation instrumentation) {
-		if (arg.equals("detach")) {
+		if (arg.equals("attach")) {
+			LogAgent agent = new LogAgent(instrumentation);
+			System.out.println("attaching LogAgent " + System.identityHashCode(agent));
+			agents.add(agent);
+		} else if (arg.equals("detach")) {
 			if (agents.isEmpty()) {
 				System.out.println("there is no LogAgent to detach");
 			}
@@ -51,9 +55,7 @@ public class LogAgent {
 			}
 			agents.clear();
 		} else {
-			LogAgent agent = new LogAgent(instrumentation);
-			System.out.println("attaching LogAgent " + System.identityHashCode(agent));
-			agents.add(agent);
+			System.out.println("Invalid argument for attaching/detaching LogAgent");
 		}
 	}
 }
