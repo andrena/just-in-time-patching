@@ -38,7 +38,7 @@ public class WeatherServer extends AbstractVerticle {
 		this.router = Router.router(vertx);
 		router.route("/static/*").handler(StaticHandler.create("src/main/resources"));
 		router.route("/day/:year/:month/:day/:hours").handler(this::predict);
-		router.route("/").handler(this::prediictForNow);
+		router.route("/").handler(this::predictForNow);
 		router.errorHandler(500, this::error);
 
 		HttpServer server = vertx.createHttpServer();
@@ -53,7 +53,7 @@ public class WeatherServer extends AbstractVerticle {
 		return engine;
 	}
 
-	public void prediictForNow(RoutingContext context) {
+	public void predictForNow(RoutingContext context) {
 		Weather weather = weatherSource.getWeather(new LocalDateTimeSource());
 		fillResponse(context.data(), new LocalDateTimeSource(), weather);
 		render(context, "src/main/resources/index.html");
