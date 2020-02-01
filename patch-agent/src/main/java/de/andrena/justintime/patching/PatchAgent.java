@@ -24,7 +24,6 @@ public class PatchAgent {
 			.intercept(MethodDelegation.to(PatchingTemplate.class));
 		runningTransformer = new AgentBuilder.Default()
 			.disableClassFormatChanges()
-			.with(new AgentBuilder.CircularityLock.Default())
 			.with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
 			.with(new AgentBuilder.Listener.WithErrorsOnly(AgentBuilder.Listener.StreamWriting.toSystemError()))
 			.type(ElementMatchers.nameContains("Esoterics"))
