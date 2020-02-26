@@ -15,3 +15,9 @@
  
  * Make sure to have the classpath variable `M2_REPO` (pointing to your local m2 repository) defined
  * Also define a string substitution for `M2_REPO` (pointing to your local m2 repository)
+ 
+ ### Configuring other IDEs:
+ 
+ * Feel free to post a configuration that helps starting the project
+ 
+ 
