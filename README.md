@@ -15,7 +15,7 @@ The [demo application](https://github.com/andrena/just-in-time-patching/tree/mas
 * Reload the page some times. You will see an error.
 * Reload again, the error is gone and will appear again after reloading some times.
 
-Now you can patch this code without restarting the application. (To simply fix the bug, just follow the steps in [Replace a Broken Method by a Fixed One](#replace-a-broken-method-by-a-fixed-one), The sections before show how you could use the mechanism to also find and reproduce the bug).
+Now you can patch this code multiple times without restarting the application. (To simply fix the bug, just follow the steps in "[Replace a Broken Method by a Fixed One](#replace-a-broken-method-by-a-fixed-one)". The intermediate sections show how you could use the patching mechanism to find and reproduce the bug).
 
 ## Insert Log Statements into a Broken Method
 
@@ -34,8 +34,8 @@ Now you can patch this code without restarting the application. (To simply fix t
   
 ## Replace a Broken Method by a Fixed One  
 
-* Write your patch code or simply watch how the defect could be fixed.
-* Build [patch-agent](https://github.com/andrena/just-in-time-patching/tree/master/patch-agent) with Maven
+* Write your patch code or simply watch how the defect could be fixed:
+* Build [patch-agent](https://github.com/andrena/just-in-time-patching/tree/master/patch-agent) with Maven.
 * Again, detach the previous agent(s) if you like.
 * Attach the agent with the [agent-attacher](https://github.com/andrena/just-in-time-patching/tree/master/agent-attacher).
 * The defect is fixed, without restarting the program. Every time the error would have occurred, you can see a log statement instead.
