@@ -8,8 +8,8 @@
 * Run `java de.andrena.justintime.attaching.RemoteAgentAttacher <agent-jar> <main-class-or-process-id> [<action>]`
   * `<agent-jar>` is the jar containing your java agent
   * `<main-class-or-process-id>` is the main class of the Java process (name parts will be sufficient) to attach to, or alternatively, the process id. If no match is found, a list of all running JVMs is printed.
-  * `<action>` is either `attach` to attach a new agent or `detach` to detach an existing one. Default: `attach`. 
-* For our 3 example agents, there are already predefined eclipse run configurations in this directory
+  * `<action>` is either `attach` (default) to attach a new agent or `detach` to detach an existing one. 
+* For our 3 example agents, you find already predefined eclipse run configurations in this directory
 
 ### Configuring eclipse:
  
