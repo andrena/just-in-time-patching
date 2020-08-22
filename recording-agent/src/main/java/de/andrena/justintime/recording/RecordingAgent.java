@@ -4,16 +4,9 @@ import java.lang.instrument.Instrumentation;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.amygdalum.testrecorder.DefaultPerformanceProfile;
-import net.amygdalum.testrecorder.DefaultSerializationProfile;
-import net.amygdalum.testrecorder.DefaultSnapshotConsumer;
 import net.amygdalum.testrecorder.TestRecorderAgent;
+import net.amygdalum.testrecorder.configurator.AgentConfigurator;
 import net.amygdalum.testrecorder.profile.AgentConfiguration;
-import net.amygdalum.testrecorder.profile.ClassPathConfigurationLoader;
-import net.amygdalum.testrecorder.profile.DefaultPathConfigurationLoader;
-import net.amygdalum.testrecorder.profile.PerformanceProfile;
-import net.amygdalum.testrecorder.profile.SerializationProfile;
-import net.amygdalum.testrecorder.profile.SnapshotConsumer;
 
 public class RecordingAgent extends TestRecorderAgent {
 
@@ -22,14 +15,21 @@ public class RecordingAgent extends TestRecorderAgent {
 	public RecordingAgent(Instrumentation instrumentation) {
 		super(instrumentation, configure());
 		this.prepareInstrumentations();
+		
 	}
 
 	private static AgentConfiguration configure() {
-		AgentConfiguration config = new AgentConfiguration(new ClassPathConfigurationLoader(), new DefaultPathConfigurationLoader())
-			.withDefaultValue(SerializationProfile.class, DefaultSerializationProfile::new)
-			.withDefaultValue(PerformanceProfile.class, DefaultPerformanceProfile::new)
-			.withDefaultValue(SnapshotConsumer.class, DefaultSnapshotConsumer::new);
-		return config;
+		return new AgentConfigurator()
+			.defaultSerializers()
+			.customSerializer(LocalDateTimeSerializer::new)
+			.defaultSetupGenerators()
+			.customSetupGenerator(LocalDateTimeSetupGenerator::new)
+			.defaultMatcherGenerators()
+			.customMatcherGenerator(LocalDateTimeMatcherGenerator::new)
+			.generateTests(MyTestGeneratorProfile::new)
+			.record(MySerializationProfile::new)
+			.to(MyTestGenerator::new)
+			.configure();
 	}
 
 	public static void premain(String arg, Instrumentation instrumentation) {

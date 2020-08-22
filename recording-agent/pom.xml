@@ -140,26 +140,6 @@
 										<Can-Retransform-Classes>true</Can-Retransform-Classes>
 									</manifestEntries>
 								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>agentconfig/net.amygdalum.testrecorder.deserializers.builder.SetupGenerator</resource>
-								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>agentconfig/net.amygdalum.testrecorder.deserializers.matcher.MatcherGenerator</resource>
-								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>agentconfig/net.amygdalum.testrecorder.profile.PerformanceProfile</resource>
-								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>agentconfig/net.amygdalum.testrecorder.profile.SerializationProfile</resource>
-								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>agentconfig/net.amygdalum.testrecorder.types.Serializer</resource>
-								</transformer>
 							</transformers>
 						</configuration>
 					</execution>
