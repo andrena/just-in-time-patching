@@ -54,11 +54,11 @@ public class LocalDateTimeSource implements DateSource {
 		int dayOfYear = date.getDayOfYear();
 		if (dayOfYear < 81) {
 			return Season.WINTER;
-		} else if (dayOfYear < 162) {
+		} else if (dayOfYear < 172) {
 			return Season.SPRING;
-		} else if (dayOfYear < 243) {
+		} else if (dayOfYear < 263) {
 			return Season.SUMMER;
-		} else if (dayOfYear < 324) {
+		} else if (dayOfYear < 354) {
 			return Season.FALL;
 		} else {
 			return Season.WINTER;
