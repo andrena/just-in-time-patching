@@ -20,6 +20,7 @@ import sun.jvmstat.monitor.VmIdentifier;
  * - main class / process ID is the main class / process ID of the java process to attach to
  * - action `attach` a new agent or `detach` an existing one
  */
+@SuppressWarnings("restriction")
 public class RemoteAgentAttacher {
 
 	public static void main(String[] args) throws Exception {
